@@ -2,7 +2,7 @@
 
 ### AMI 등록 취소
 ```
-aws --profile default ec2 deregister-image --image-id  ami-095c4bc4c6c1c5653
+aws --profile default ec2 deregister-image --image-id ami-095c4bc4c6c1c5653
 ```
 
 ### 스냅샷 조회(스냅샷 ID 조회)
