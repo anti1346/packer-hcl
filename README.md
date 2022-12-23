@@ -18,8 +18,11 @@ aws --profile default ec2 delete-snapshot --snapshot-id snap-1234567890abcdef0
 ```
 
 
-
-### packer validate aws.pkr.hcl
+##### packer validate
+```
+packer validate aws.pkr.hcl
+```
+##### packer build
 ```
 packer build -var="ami_dist=amazon2" aws.pkr.hcl
 ```
