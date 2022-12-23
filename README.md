@@ -10,7 +10,8 @@ aws --profile default ec2 deregister-image --image-id  ami-095c4bc4c6c1c5653
 aws --profile default ec2 describe-snapshots --owner-ids self --query 'Snapshots[]'
 ```
 ```
-aws --profile default ec2 describe-snapshots --owner-ids self --filters Name=description,Values=* ami-095c4bc4c6c1c5653 \
+aws --profile default ec2 describe-snapshots --owner-ids self \
+--filters Name=description,Values=* ami-095c4bc4c6c1c5653 \
 --query 'Snapshots[*].{ID:SnapshotId}' --output text
 ```
 ### 스냅샷 삭제
