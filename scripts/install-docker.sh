@@ -6,7 +6,8 @@ if [ "$os_distribution" == "Amazon" ]; then
     sudo cd /home/ec2-user/
     sudo amazon-linux-extras install -y docker
     sudo systemctl --now enable docker
-    sudo usermod -a -G docker ec2-user
+    sudo usermod -aG docker ec2-user
+    sudo chmod 666 /var/run/docker.sock
 elif [ "$os_distribution" == "Ubuntu" ]; then
     echo "docker ==> verser 20.10.22"
     sudo apt-get update
@@ -18,7 +19,8 @@ elif [ "$os_distribution" == "Ubuntu" ]; then
     sudo apt-get update
     sudo apt-get install -y docker-ce
     sudo systemctl --now enable docker
-    sudo usermod -a -G docker ubuntu
+    sudo usermod -aG docker ubuntu
+    sudo chmod 666 /var/run/docker.sock
 else
     sudo echo "other operating system distribution"
 fi
