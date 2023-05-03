@@ -35,13 +35,13 @@ build {
   ]
 
   provisioner "shell" {
-    script       = "scripts/install-nginx-phpfpm.sh"
+    script       = "scripts/ubuntu/install-nginx-phpfpm_20230503.sh"
     pause_before = "10s"
     timeout      = "10s"
   }
 
   provisioner "shell" {
-    script       = "scripts/os-settings.sh"
+    script       = "scripts/ubuntu/os-settings_20230503.sh"
     pause_before = "10s"
     timeout      = "10s"
   }
