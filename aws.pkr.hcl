@@ -1,12 +1,3 @@
-packer {
-  required_plugins {
-    amazon = {
-      version = ">= 1.1.1"
-      source  = "github.com/hashicorp/amazon"
-    }
-  }
-}
-
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
@@ -14,11 +5,13 @@ locals {
 variable "aws_access_key" {
   type    = string
   default = "aws_access_key"
+  description = "AWS access key"
 }
 
 variable "aws_secret_key" {
   type    = string
   default = "aws_secret_key"
+  description = "AWS secret key"
 }
 
 variable "aws_profile" {
@@ -38,15 +31,24 @@ variable "aws_instance_type" {
 }
 
 variable "ami_prefix" {
-  type = string
-  default = "aws-packer"
-  description = "prefix to be applied to image name"
+  type        = string
+  description = "Prefix to be applied to the image name"
+  default     = "aws-packer"
 }
 
 variable "ami_dist" {
-  type = string
-  default = "amazon2"
-  description = "operating system distribution"
+  type        = string
+  description = "Operating system distribution"
+  default     = "amazon2"
+}
+
+packer {
+  required_plugins {
+    amazon = {
+      version = ">= 0.0.2"
+      source  = "github.com/hashicorp/amazon"
+    }
+  }
 }
 
 source "amazon-ebs" "ubuntu" {
