@@ -1,14 +1,19 @@
 #!/bin/bash
 
-os_distribution=$(cat /etc/os-release | grep "PRETTY_NAME" | sed 's/PRETTY_NAME=//g' | sed 's/["]//g' | awk '{print $1}')
-if [ "$os_distribution" == "Amazon" ]; then
-    sudo yum update
-    echo "script ==> Amazon"
-elif [ "$os_distribution" == "Ubuntu" ]; then
+os_distribution=$(grep "PRETTY_NAME" /etc/os-release | sed 's/PRETTY_NAME=//g; s/["]//g' | awk '{print $1}')
+
+case "$os_distribution" in
+  Amazon)
+    #sudo yum update
+    echo "Script ==> Amazon"
+    ;;
+  Ubuntu)
     sudo apt-get update
-    echo "script ==> Ubuntu"
-else
-    sudo echo "other operating system distribution"
-fi
+    echo "Script ==> Ubuntu"
+    ;;
+  *)
+    echo "Other operating system distribution"
+    ;;
+esac
 
 sudo timedatectl set-timezone Asia/Seoul
