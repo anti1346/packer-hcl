@@ -10,13 +10,19 @@ packer {
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
+# locals {
+#   timestamp = timestamp()
+#   formatted_timestamp = formatdate("YYYYMMDD-HHMM", local.timestamp) # YYYYMMDD
+# }
+
 
 variables {
   ami_prefix           = "amzn2-nginx_php-fpm"
+  ami_verser           = "v1.1.1"
   aws_region           = "ap-northeast-2"
   aws_vpc_id           = "vpc-0"
   aws_subnet_id        = "subnet-0"
-  aws_instance_type    = "t3a.medium"
+  aws_instance_type    = "t3a.medium" #t3a.medium, c5a.xlarge
   block_device_size_gb = "10"
 }
 
@@ -27,7 +33,9 @@ source "amazon-ebs" "amzn2" {
   subnet_id       = var.aws_subnet_id
   instance_type   = var.aws_instance_type
   ami_name        = "${var.ami_prefix}-{{timestamp}}"
+  # ami_name        = "${var.ami_prefix}-${var.ami_verser}_${local.formatted_timestamp}"
   ami_description = "Amazon Linux AMI v2 created by Packer"
+
   launch_block_device_mappings {
     volume_size           = var.block_device_size_gb
     delete_on_termination = true
@@ -51,6 +59,7 @@ source "amazon-ebs" "amzn2" {
 
   tags = {
     Name                     = "${var.ami_prefix}-{{timestamp}}"
+    # Name                     = "${var.ami_prefix}-${var.ami_verser}_${local.formatted_timestamp}"
     Operating_System_Version = "Amazon Linux v2"
     Source_AMI               = "{{ .SourceAMI }}"
     Base_AMI_Name            = "{{ .SourceAMIName }}"
@@ -60,10 +69,25 @@ source "amazon-ebs" "amzn2" {
 
 build {
   name    = "${var.ami_prefix}-{{timestamp}}"
+  # name    = "${var.ami_prefix}-${var.ami_verser}_${local.formatted_timestamp}"
   sources = ["source.amazon-ebs.amzn2"]
 
+  provisioner "file" {
+    source      = "./scripts/init-install.sh"
+    destination = "/tmp/init-install.sh"
+  }
+
+  provisioner "file" {
+    source      = "./WEB-CONFIG"
+    destination = "/tmp/Initialize_Files"
+  }
+
   provisioner "shell" {
-    script = "scripts/init-install.sh"
+    inline = [
+      "sudo chmod +x /tmp/init-install.sh",
+      "bash /tmp/init-install.sh",
+      "echo 'AMI Build Completed'"
+    ]
   }
 
   post-processor "shell-local" {

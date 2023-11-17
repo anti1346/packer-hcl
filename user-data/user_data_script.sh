@@ -17,3 +17,13 @@ case "$os_distribution" in
 esac
 
 sudo timedatectl set-timezone Asia/Seoul
+
+sudo systemctl restart chronyd.service
+
+sudo systemctl restart zabbix-agent
+
+sudo systemctl restart nginx.service
+sudo systemctl restart php-fpm.service
+
+sudo systemctl restart amazon-cloudwatch-agent.service
+sudo systemctl restart codedeploy-agent.service
