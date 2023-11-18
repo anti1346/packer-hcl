@@ -45,11 +45,11 @@ source "amazon-ebs" "amzn2" {
   ssh_timeout  = "5m"
 
   tags = {
-    Name                     = "${var.ami_prefix}-${var.ami_version}-${local.timestamp}"
-    Operating_System_Version = "Amazon Linux v2"
-    Source_AMI               = "{{ .SourceAMI }}"
-    Source_AMI_Name          = "{{ .SourceAMIName }}"
-    Creation_Date            = "{{ .SourceAMICreationDate }}"
+    Name                      = "${var.ami_prefix}-${var.ami_version}-${local.timestamp}"
+    Source_AMI_Creation_Date  = "{{ .SourceAMICreationDate }}"
+    Source_AMI                = "{{ .SourceAMI }}"
+    Source_AMI_Name           = "{{ .SourceAMIName }}"
+    Operating_System_Version  = "Amazon Linux v2"
   }
 }
 
@@ -80,14 +80,9 @@ build {
   }
 }
 
-variable "ami_prefix" {
-  type = string
-  default = ""
-}
-variable "ami_version" {
-  type = string
-  default = ""
-}
+####################
+##### variable #####
+####################
 variable "aws_region" {
   type = string
   default = ""
@@ -97,6 +92,14 @@ variable "aws_vpc_id" {
   default = ""
 }
 variable "aws_subnet_id" {
+  type = string
+  default = ""
+}
+variable "ami_prefix" {
+  type = string
+  default = ""
+}
+variable "ami_version" {
   type = string
   default = ""
 }
