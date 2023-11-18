@@ -11,36 +11,17 @@ locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
 
-# Load variables from test.pkrvars.hcl
-vars_file = ["test.pkrvars.hcl"]
-
-variables {
-  ami_name             = "${var.ami_prefix}-${local.timestamp}"
-  ami_description      = "Amazon Linux AMI v2 created by Packer"
-  ssh_username         = "ec2-user"
-  ssh_timeout          = "5m"
-
-  # Other variables from test.pkrvars.hcl
-  ami_prefix           = var.ami_prefix
-  ami_version          = var.ami_version
-  aws_region           = var.aws_region
-  aws_vpc_id           = var.aws_vpc_id
-  aws_subnet_id        = var.aws_subnet_id
-  aws_instance_type    = var.aws_instance_type
-  block_device_size_gb = var.block_device_size_gb
-}
-
 source "amazon-ebs" "amzn2" {
   profile         = "default"
-  region          = var.aws_region
-  vpc_id          = var.aws_vpc_id
-  subnet_id       = var.aws_subnet_id
-  instance_type   = var.aws_instance_type
-  ami_name        = var.ami_name
-  ami_description = var.ami_description
+  region          = "${var.aws_region}"
+  vpc_id          = "${var.aws_vpc_id}"
+  subnet_id       = "${var.aws_subnet_id}"
+  instance_type   = "${var.aws_instance_type}"
+  ami_name        = "${var.ami_prefix}-${local.timestamp}"
+  ami_description = "Amazon Linux AMI v2 created by Packer"
 
   launch_block_device_mappings {
-    volume_size           = var.block_device_size_gb
+    volume_size           = 10
     delete_on_termination = true
     volume_type           = "gp3"
     device_name           = "/dev/xvda"
@@ -56,8 +37,8 @@ source "amazon-ebs" "amzn2" {
     owners      = ["amazon"]
   }
 
-  ssh_username = var.ssh_username
-  ssh_timeout  = var.ssh_timeout
+  ssh_username = "ec2-user"
+  ssh_timeout  = "5m"
 
   tags = {
     Name                     = var.ami_name

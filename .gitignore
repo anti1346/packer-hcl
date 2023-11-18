@@ -1,3 +1,3 @@
 .git
 .pkrvars.hcl
-test.pkrvars.hcl
+*vars.pkr.hcl
