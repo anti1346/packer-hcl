@@ -47,36 +47,36 @@ curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/aws/amzn2-nginx.sh
 echo -e "${YELLOW}script end <== nginx${NC}"
 sleep 5
 
-### php-fpm 8.1
-echo -e "${YELLOW}script start ==> php-fpm(php)${NC}"
-curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/aws/amzn2-phpfpm.sh | sudo bash
-echo -e "${YELLOW}script end <== php-fpm(php)${NC}"
+# ### php-fpm 8.1
+# echo -e "${YELLOW}script start ==> php-fpm(php)${NC}"
+# curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/aws/amzn2-phpfpm.sh | sudo bash
+# echo -e "${YELLOW}script end <== php-fpm(php)${NC}"
 
-### WEB CONFIG(nginx, php-fpm)
-sudo chmod +x /tmp/Initialize_Files/configure-nginx-phpfpm.sh
-sudo bash /tmp/Initialize_Files/configure-nginx-phpfpm.sh
+# ### WEB CONFIG(nginx, php-fpm)
+# sudo chmod +x /tmp/Initialize_Files/configure-nginx-phpfpm.sh
+# sudo bash /tmp/Initialize_Files/configure-nginx-phpfpm.sh
 
-### composer 2.5
-echo -e "${YELLOW}script start ==> composer${NC}"
-# composer 실행 파일이 있는지 확인
-if [ -x "$(command -v composer)" ]; then
-    echo "Composer is already installed."
-else
-    # Download and install Composer
-    sudo curl -Ssf https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin/
-    sudo ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
-    echo "Composer has been installed."
-fi
-echo "Composer `composer --version | awk 'NR==1{print $3}'` 설치가 완료되었습니다."
-echo -e "${YELLOW}script end <== composer${NC}"
+# ### composer 2.5
+# echo -e "${YELLOW}script start ==> composer${NC}"
+# # composer 실행 파일이 있는지 확인
+# if [ -x "$(command -v composer)" ]; then
+#     echo "Composer is already installed."
+# else
+#     # Download and install Composer
+#     sudo curl -Ssf https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin/
+#     sudo ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
+#     echo "Composer has been installed."
+# fi
+# echo "Composer `composer --version | awk 'NR==1{print $3}'` 설치가 완료되었습니다."
+# echo -e "${YELLOW}script end <== composer${NC}"
 
-### cloudwatch-agent
-echo -e "${YELLOW}script start ==> cloudwatch-agent${NC}"
-### amazon-cloudwatch-agent.json
-sudo cp -f /tmp/Initialize_Files/amazon-cloudwatch-agent.json /root/amazon-cloudwatch-agent.json
-sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/root/amazon-cloudwatch-agent.json
-# cat /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.toml
-echo -e "${YELLOW}script end <== cloudwatch-agent${NC}"
+# ### cloudwatch-agent
+# echo -e "${YELLOW}script start ==> cloudwatch-agent${NC}"
+# ### amazon-cloudwatch-agent.json
+# sudo cp -f /tmp/Initialize_Files/amazon-cloudwatch-agent.json /root/amazon-cloudwatch-agent.json
+# sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -s -c file:/root/amazon-cloudwatch-agent.json
+# # cat /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.toml
+# echo -e "${YELLOW}script end <== cloudwatch-agent${NC}"
 
 sudo rm -rf /tmp/init-install.sh /tmp/Initialize_Files
 

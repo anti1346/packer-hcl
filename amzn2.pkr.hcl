@@ -78,7 +78,7 @@ build {
   }
 
   provisioner "file" {
-    source      = "./WEB-CONFIG"
+    source      = "./Initialize_Files"
     destination = "/tmp/Initialize_Files"
   }
 
