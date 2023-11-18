@@ -33,7 +33,7 @@ source "amazon-ebs" "amzn2" {
 
   source_ami_filter {
     filters = {
-      name                = "${var.source_ami_name}""
+      name                = "${var.source_ami_name}"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
@@ -45,7 +45,7 @@ source "amazon-ebs" "amzn2" {
   ssh_timeout  = "5m"
 
   tags = {
-    Name                      = "${var.ami_prefix}-${var.ami_version}-${local.timestamp}"
+    Name                      = "${var.ami_prefix}-${var.ami_version}"
     Source_AMI_Creation_Date  = "{{ .SourceAMICreationDate }}"
     Source_AMI                = "{{ .SourceAMI }}"
     Source_AMI_Name           = "{{ .SourceAMIName }}"
