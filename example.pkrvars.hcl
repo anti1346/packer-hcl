@@ -1,0 +1,13 @@
+#aws_access_key      = "your_access_key"
+#aws_secret_key      = "your_secret_key"
+aws_region              = "ap-northeast-2"
+aws_vpc_id              = "vpc-0"
+aws_subnet_id           = "subnet-0"
+ami_prefix              = "amzn2-nginx_phpfpm"
+ami_version             = "v1.1.1"
+ami_description         = "Amazon Linux AMI v2 created by Packer"
+aws_instance_type       = "t4g.medium" ### t3a.medium, c5a.xlarge, t4g.medium
+block_device_size_gb    = "10"
+source_ami_name         = "amzn2-ami-kernel-5.10-hvm-*-arm64-gp2"
+### amzn2 arm64 = amzn2-ami-kernel-5.10-hvm-*-arm64-gp2
+### amzn2 x86_64 = amzn2-ami-kernel-5.10-hvm-*-x86_64-gp2

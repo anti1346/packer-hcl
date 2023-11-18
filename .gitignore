@@ -1,3 +1,3 @@
 .git
-.pkrvars.hcl
-*vars.pkr.hcl
+.backupdir
+test.pkrvars.hcl
