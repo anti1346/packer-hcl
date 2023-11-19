@@ -29,12 +29,12 @@ curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/common/awscliv2.sh
 echo -e "${YELLOW}script end <== awscli${NC}"
 sleep 5
 
-### Cloudwatch Agent
-echo -e "${YELLOW}script start ==> cloudwatch agent${NC}"
-#curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/aws/cloudwatch-agent.sh | sudo bash
-curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/common/amazon-cloudwatch-agent.sh | sudo bash
-echo -e "${YELLOW}script end <== cloudwatch agent${NC}"
-sleep 5
+# ### Cloudwatch Agent
+# echo -e "${YELLOW}script start ==> cloudwatch agent${NC}"
+# #curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/aws/cloudwatch-agent.sh | sudo bash
+# curl -fsSL https://raw.githubusercontent.com/anti1346/zz/main/common/amazon-cloudwatch-agent.sh | sudo bash
+# echo -e "${YELLOW}script end <== cloudwatch agent${NC}"
+# sleep 5
 
 ### Codedeploy Agent
 echo -e "${YELLOW}script start ==> codedeploy agent${NC}"
